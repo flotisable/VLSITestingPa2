@@ -66,5 +66,11 @@ scripts: settings
 installScripts: settings
 	cp ${scriptFiles} ${scriptInstallPath}
 
-clean:
-	rm ${srcDir}/*.o ${srcDir}/${PROG}
+clean: settings
+	rm ${srcDir}/*.o ${srcDir}/${PROG} *.tgz tags
+	@if [ -d ${archiveName} ]; then \
+		rm -r ${archiveName}; \
+	fi
+	@if [ -d $@ ]; then \
+		rm -r $@; \
+	fi
