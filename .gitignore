@@ -3,3 +3,7 @@
 *.o
 src/atpg
 *.doc
+r06943085*
+*.tgz
+scripts/
+tags

@@ -1,0 +1,23 @@
+archiveName := r06943085_pa2
+
+archiveFiles := \
+  src \
+  readme
+
+reportCircuits := \
+  c432 \
+  c499 \
+  c880 \
+  c1355 \
+  c2670 \
+  c3540 \
+  c6288 \
+  c7552
+
+scriptInstallPath := ../Pa2
+
+scriptFiles := \
+  reportStatistic.perl \
+  settings \
+  makefile \
+  readmeScript.txt
