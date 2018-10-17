@@ -9,7 +9,7 @@
 
 void usage(void);
 
-main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
   string inpFile, vetFile;
   int i, j;
   ATPG atpg; // create an ATPG obj, named atpg
@@ -94,7 +94,7 @@ void usage(void) {
 
 void ATPG::read_vectors(const string& vetFile) {
   string t, vec;
-  size_t i;
+  //size_t i;
   
   ifstream file(vetFile, std::ifstream::in); // open the input vectors' file
   if(!file) { // if the ifstream obj does not exist, fail to open the file
