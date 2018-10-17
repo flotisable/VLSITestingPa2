@@ -1,0 +1,5 @@
+*.input
+*.uf
+*.o
+src/atpg
+*.doc
