@@ -356,7 +356,9 @@ ATPG::wptr ATPG::find_pi_assignment(const wptr object_wire, const int& object_le
 		// TODO find the input wire  
     // Hint similar to OR and NAND but different polarity
     //--------------------------------- hole -------------------------------------------
-
+        new_object_wire = ( object_level ) ?  find_hardest_control( object_wire->inode.front() ) :
+                                              find_easiest_control( object_wire->inode.front() );
+        break;
     //----------------------------------------------------------------------------------
 		//  TODO 
       case  NOT:
