@@ -475,7 +475,14 @@ bool ATPG::check_test(void) {
 	//TODO check if any fault effect reach PO
 	//HINT check every PO for their value
 	//--------------------------------- hole -------------------------------------------
+  ncktout = static_cast<int>( cktout.size() );
 
+  for( i = 0 ; i < ncktout ; ++i )
+     if( cktout[i]->value == D || cktout[i]->value == B )
+     {
+       is_test = true;
+       break;
+     }
 	//----------------------------------------------------------------------------------
   //TODO
   return is_test;
