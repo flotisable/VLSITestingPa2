@@ -401,7 +401,10 @@ ATPG::wptr ATPG::find_easiest_control(const nptr n) {
   // TODO  find the input with min level
   // Hint: similar to hardiest_control but increasing level order
   //--------------------------------- hole -------------------------------------------
+  nin = static_cast<int>( n->iwire.size() );
 
+  for( i = 0 ; i < nin ; ++i )
+    if( n->iwire[i]->value == U ) return n->iwire[i];
   //----------------------------------------------------------------------------------
   //  TODO 
   return(nullptr);
