@@ -447,10 +447,19 @@ ATPG::nptr ATPG::find_propagate_gate(const int& level) {
  * returns NULL if no X path exists*/
 bool ATPG::trace_unknown_path(const wptr w) {
   int i,nout;
-  wptr wtemp;
+  //wptr wtemp;
 	//TODO search X-path
 	//HINT if w is PO, return TRUE, if not, check all its fanout 
 	//------------------------------------- hole ---------------------------------------
+  if( w->flag | OUTPUT ) return true; // PO
+
+  nout = static_cast<int>( w->onode.size() );
+
+  // check all fanouts
+  for( i = nout - 1 ; i >= 0 ; --i )
+     if( trace_unknown_path( w->onode[i]->owire.front() ) )
+       return true;
+  // end check all fanouts
 
   return false; // X-path disappear
   //TODO 
