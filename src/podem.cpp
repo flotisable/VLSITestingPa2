@@ -570,7 +570,12 @@ int ATPG::set_uniquely_implied_value(const fptr fault) {
 	//TODO fault excitation
 	//HINT use backward_imply function to check if fault can excite or not
 	//------------------------------------ hole ----------------------------------------
-
+  switch( fault->fault_type )
+  {
+    case STUCK0: pi_is_reach = backward_imply( w, 1 );  break;
+    case STUCK1: pi_is_reach = backward_imply( w, 0 );  break;
+    default:                                            break;
+  }
 
   //----------------------------------------------------------------------------------
   //TODO
