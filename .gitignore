@@ -8,3 +8,6 @@ r06943085*
 scripts/
 tags
 Test
+report.pdf
+*.tex
+*.table
