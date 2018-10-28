@@ -1,0 +1,56 @@
+# -*- org-use-sub-superscripts: {}; org-export-with-sub-superscripts: {}; -*-
+#+TITLE: VLSI Testing PA2 Report
+#+AUTHOR: r06943085 黃韋智
+#+OPTIONS: toc:nil
+#+LATEX_HEADER: \usepackage{CJKutf8}
+#+LATEX_HEADER: \AtBeginDocument{ \begin{CJK}{UTF8}{bkai} }
+#+LATEX_HEADER: \AtEndDocument{ \end{CJK} }
+#+LATEX_HEADER: \addtolength{\oddsidemargin}{-3cm}
+#+LATEX_HEADER: \addtolength{\textwidth}{5cm}
+
+* 表格
+  |   | circuit | number of |    number of | number of |  number of |    fault | number of | run time |
+  |   | number  |     gates | total faults |  detected | undetected | coverage |      test |          |
+  |   |         |           |              |    faults |     faults |          |    vector |          |
+  | / | >       |           |              |           |            |          |           |          |
+  |---+---------+-----------+--------------+-----------+------------+----------+-----------+----------|
+  |   | c432    |       245 |         1110 |       149 |        961 |   13.42% |        20 | 0.0s     |
+  |   | c499    |       554 |         2390 |      2263 |        127 |   94.69% |        66 | 0.0s     |
+  |   | c880    |       545 |         2104 |      1254 |        850 |   59.60% |        65 | 0.0s     |
+  |   | c1355   |       554 |         2726 |      1702 |       1024 |   62.44% |        63 | 0.0s     |
+  |   | c2670   |      1785 |         6520 |      6278 |        242 |   96.29% |       135 | 0.1s     |
+  |   | c3540   |      2082 |         7910 |      2424 |       5486 |   30.64% |        98 | 0.3s     |
+  |   | c6288   |      4800 |        17376 |     17109 |        267 |   98.46% |        42 | 0.3s     |
+  |   | c7552   |      5679 |        19456 |     19144 |        312 |   98.40% |       289 | 0.9s     |
+
+* 程式碼
+  - find_pi_assignment
+
+    根據 object 找最簡單或最難的 fanin。
+    因為是 AND、NOR，object 為 1 時，每個輸入都為 1，所以先找最難的。
+    反之， object 為 0 時，只要一個輸入為 0，就可以找最簡單的。
+    #+INCLUDE: "./src/podem.cpp" src C++ :lines "359-362" -n 359
+  - find_easiset_control
+
+    因為 fanin 是照 level 做排序的，
+    所以 index 越小的 fanin level 越低，
+    亦即越簡單。
+    所以從 index 小的 fanin 開始找，
+    第一個 unknown 的 fanin 即為目前最簡單的 fanin。
+    #+INCLUDE: "./src/podem.cpp" src C++ :lines "404-408" -n 404
+  - trace_unknown_path
+    
+    如果找到 PO 還是 unknown 就表示 x-path 存在
+    #+INCLUDE: "./src/podem.cpp" src C++ :lines "454-455" -n 454
+    反之，對所有 fanout recursive 的尋找 x-path
+    #+INCLUDE: "./src/podem.cpp" src C++ :lines "456-467" +n
+  - check_test
+    
+    確認所有的 PO 看是不是有 D 或 D' 被傳到 PO。
+    如果有 D 或 D’ 被傳到 PO 就表示 fault 被 test 到了。
+    #+INCLUDE: "./src/podem.cpp" src C++ :lines "482-490" -n 482
+  - set_uniquely_implied_value
+
+    根據不同的 stuck-at fault，去觀察看看是不是可以被 backward imply 到 PI。
+    #+INCLUDE: "./src/podem.cpp" src C++ :lines "577-583" -n 577
+* Bonus
